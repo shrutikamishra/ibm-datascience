@@ -2,15 +2,15 @@
 -- ADVANCED SQL for Data Engineers
 
 -- Exercise 1 - Joins
--- Q1.1 SQL query to list the school names, community names and average attendance for communities with a hardship index of 98
-SELECT cps.NAME_OF_SCHOOL, cps.COMMUNITY_AREA_NAME,cps.AVERAGE_STUDENT_ATTENDANCE
+-- Q1.1 SQL query to list the school names, community names, and average attendance for communities with a hardship index of 98
+SELECT cps.NAME_OF_SCHOOL, cps.COMMUNITY_AREA_NAME, cps.AVERAGE_STUDENT_ATTENDANCE
 FROM chicago_public_schools AS cps
 LEFT JOIN chicago_socioeconomic_data AS cd
 ON cps.COMMUNITY_AREA_NUMBER = cd.COMMUNITY_AREA_NUMBER
 WHERE cd.HARDSHIP_INDEX = 98;
 
--- Q1.2 SQL query to list all crimes that took place at a school. Include case number, crime type and community name
-SELECT ccd.CASE_NUMBER,ccd.PRIMARY_TYPE,cd.COMMUNITY_AREA_NUMBER, ccd.LOCATION_DESCRIPTION 
+-- Q1.2 SQL query to list all crimes that took place at a school. Include case number, crime type, and community name
+SELECT ccd.CASE_NUMBER, ccd.PRIMARY_TYPE, cd.COMMUNITY_AREA_NAME, ccd.LOCATION_DESCRIPTION 
 FROM chicago_crime AS ccd
 LEFT JOIN chicago_socioeconomic_data AS cd
 ON ccd.COMMUNITY_AREA_NUMBER = cd.COMMUNITY_AREA_NUMBER 
@@ -20,8 +20,7 @@ WHERE ccd.LOCATION_DESCRIPTION LIKE '%SCHOOL%';
 -- Exercise 2 - View
 -- Q2.1 SQL statement to create a view 
 CREATE VIEW CHICAGOSCHOOL AS 
-SELECT 
-	NAME_OF_SCHOOL AS School_Name,
+SELECT NAME_OF_SCHOOL AS School_Name,
     Safety_Icon AS Safety_Rating,
     Family_Involvement_Icon AS Family_Rating,
     Environment_Icon AS Environment_Rating,
@@ -48,6 +47,7 @@ BEGIN
     
 END //
 DELIMITER ;
+
 
 -- Q3.2 SQL statement to update the Leaders_Score field in the chicago_public_schools table for the school idenfitied by in_School_ID to the value in the in_Leader_Score parameter 
 DROP PROCEDURE IF EXISTS `UPDATE_LEADERS_SCORE`;
